@@ -29,7 +29,7 @@ def listar_eventos():
 
 @app.route('api/eventos/', methods=['POST'])    
 def criar_evento():
-    data = json.loads(request.data)
+    data = request.get_json()
     nome = data.get('nome')
     local = data.get('local')
 
@@ -55,19 +55,55 @@ def not_found(erro):
 def bad_request(erro):
     return (jsonify(erro=str(erro)), 400)
 
+def get_evento(id):
+    for ev in eventos:
+        if ev.id == id:
+            return ev
+    abort(404, 'Evento não encon')
 
 @app.route('api/eventos/<int:id>/')
 def detalhar_evento(id):
-    for ev in eventos:
-        if ev.id == id:
-            return jsonify(ev.__dict__)
-    abort(404, 'Evento não encontrado')
-    #return make_response(jsonify(data), 404)
+    ev = get_evento(id)
+    return jsonify(ev.__dict__)
     
 @app.route('api/eventos/<int:id>/', methods=['DELETE'])
 def deletar_evento(id):
-    for ev in eventos:
-        if ev.id == id:
-            eventos.remove(ev)
-            return jsonify(id=id)
-    abort(404, 'Evento não encontrado')    
+    ev = get_evento(id)
+    eventos.remove(ev)
+    return jsonify(id=id)
+
+@app.route('api/eventos/<int:id>/', methods=['PUT'])
+def editar_evento(id):
+    #Parsing
+    data = request.get_json()
+    nome = data.get('nome')
+    local = data.get('local')
+    
+    #Validação
+    if not nome:
+        abort(400, '"nome" precisa ser informado!')
+    if not local:
+        abort(400, '"local" precisa ser informado!')
+
+    #Modificação
+    ev = get_evento(id)
+    ev.nome = nome
+    ev.local = local
+
+    return jsonify(ev.__dict__)
+    
+@app.route('api/eventos/<int:id>/', methods=['PATCH'])
+def editar_evento_parcial(id):
+    data = request.get_json()
+    ev = get_evento(id)
+    if 'nome' in data.keys():
+        nome = data.get('nome')
+        if not nome:
+            abort(400, '"nome" precisa ser informado!')
+        ev.nome = nome
+    if 'local' in data.keys():
+        local = data.get('local')
+        if not local:
+            abort(400, '"local" precisa ser informado!')
+        ev.local = local
+    return jsonify(ev.__dict__)    
