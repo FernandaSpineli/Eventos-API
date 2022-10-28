@@ -1,0 +1,13 @@
+### RODAR APLICAÇÃO
+python manage.py runserver
+
+
+### FAZER MIGRAÇÕES
+python manage.py makemigrations
+
+### MIGRAR PARA O DB
+python manage.py migrate
+
+
+python manage.py dbshell
+.tables
