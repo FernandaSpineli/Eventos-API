@@ -8,6 +8,25 @@ python manage.py makemigrations
 ### MIGRAR PARA O DB
 python manage.py migrate
 
-
+### ACESSAR BANCO
 python manage.py dbshell
-.tables
+
+.tables - listar tabelas
+SELECT * FROM agenda_categoria - comando de busca SQL
+
+
+### ACESSAR INTERATIVO DO PYTHON
+python manage.py shell
+
+from agenda.models import Evento, Categoria
+
+- cat = Categoria.objects.create(nome="Backend") -- criando objeto e persistindo no bd
+- categoria_3 = Categoria(nome='Fullstack') - criando objeto
+- categoria_3.save() - persistindo no bd
+
+Categoria.objects.all() - buscando todos os objetos da tabela
+Categoria.objects.filter(nome='Backend')
+
+backend = Categoria.objects.filter(nome='Backend')
+backend = backend[0]
+backend.nome
