@@ -14,8 +14,7 @@ def listar_eventos(request):
         template_name='agenda/listar_eventos.html'
     )
 
-
-def exibir_evento(request):
+def exibir_evento(request, id):
     evento = {
         'nome': 'Teste',
         'categoria': 'Categoria A',
