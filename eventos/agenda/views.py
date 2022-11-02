@@ -21,5 +21,3 @@ def exibir_evento(request, id):
         context={'evento': evento},
         template_name='agenda/exibir_evento.html'
     )
-
-    
