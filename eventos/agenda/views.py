@@ -1,6 +1,6 @@
 from multiprocessing import context
 from django.http.response import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
 
 from agenda.models import Evento
@@ -15,11 +15,11 @@ def listar_eventos(request):
     )
 
 def exibir_evento(request, id):
-    evento = {
-        'nome': 'Teste',
-        'categoria': 'Categoria A',
-        'local': 'São Paulo'
-    }
-    return render(request=request, context={'evento': evento}, template_name='agenda/exibir_evento.html')
+    evento = get_object_or_404(Evento, id=id)
+    return render(
+        request=request,
+        context={'evento': evento},
+        template_name='agenda/exibir_evento.html'
+    )
 
     
