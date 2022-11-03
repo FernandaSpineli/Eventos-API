@@ -1,7 +1,6 @@
-from multiprocessing import context
-from django.http.response import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.template import loader
+from django.urls import reverse
 
 from agenda.models import Evento
 
@@ -21,3 +20,10 @@ def exibir_evento(request, id):
         context={'evento': evento},
         template_name='agenda/exibir_evento.html'
     )
+
+def participar_evento(request):
+    evento_id = request.POST.get("evento_id")
+    evento = get_object_or_404(Evento, id=evento_id)
+    evento.participantes += 1
+    evento.save()
+    return HttpResponseRedirect(reverse('exibir_evento', args=(evento_id,)))
