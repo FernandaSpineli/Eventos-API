@@ -3,7 +3,7 @@ python manage.py runserver
 
 
 ### FAZER MIGRAÇÕES
-python manage.py makemigrations
+python manage.py makemigrations -- adiciona as informações novas no banco
 
 ### MIGRAR PARA O DB
 python manage.py migrate
