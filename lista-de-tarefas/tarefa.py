@@ -1,13 +1,14 @@
+# TEST DRIVEN DEVELOPMENT
 class Tarefa:
-    def __init__(self, titulo, descricao='', data=None, notificacao=None, concluida=False):
+    def __init__(self, titulo, descricao='', data=None, notificacao=None):
         self.titulo= titulo
         self.descricao = descricao
         self.data = data
         self.notificacao = notificacao
-        self.concluida = concluida
+        self.concluida = False
         
     def concluir(self):
-        pass
+        self.concluida = True
     
     def adicionar_descricao(self, descricao):
         pass
