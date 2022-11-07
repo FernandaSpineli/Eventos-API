@@ -1,4 +1,7 @@
 # TEST DRIVEN DEVELOPMENT
+from datetime import datetime, timedelta
+
+
 class Tarefa:
     def __init__(self, titulo, descricao='', data=None, notificacao=None):
         self.titulo= titulo
@@ -10,12 +13,18 @@ class Tarefa:
     def concluir(self):
         self.concluida = True
     
-    def adicionar_descricao(self, descricao):
-        pass
+    def adicionar_descricao(self, nova_descricao):
+        self.descricao = nova_descricao
     
     def adiar_notificacao(self, minutos):
-        pass
-    
+        if self.notificacao is None:
+            return
+        
+        nova_notificacao = self.notificacao + timedelta(minutes=minutos)
+        self.notificacao = nova_notificacao
+        
     def atrasada(self):
-        pass
+        if self.data != None:
+            if self.data < datetime.now():
+                return 'está atrasada'
     
