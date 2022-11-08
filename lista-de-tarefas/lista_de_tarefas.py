@@ -4,14 +4,12 @@ class ListaDeTarefas:
         self._quantidade_tarefas = 0
         
     def adicionar_tarefa(self, tarefa):
-        pass
+        self._tarefas.append(tarefa)
     
     def get_tarefas(self, incluir_concluidas=False):
-        pass
-    
-    def get_tarefas_atrasadas(self):
-        pass
-    
-    def get_tarefas_para_hoje(self):
-        pass
+        tarefas_nao_concluidas = []
+        for tarefa in self._tarefas:
+            if not tarefa.concluida:
+                tarefas_nao_concluidas.append(tarefa)
+        return tarefas_nao_concluidas
     
