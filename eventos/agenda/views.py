@@ -8,8 +8,8 @@ from agenda.models import Evento
 
 # Create your views here.
 def listar_eventos(request):
-    eventos = Evento.objects.filter(
-        data__gte=date.today()
+    eventos = Evento.objects.exclude(
+        data__lt=date.today()
     )
     return render(
         request=request,
