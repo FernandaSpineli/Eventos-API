@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -6,7 +8,9 @@ from agenda.models import Evento
 
 # Create your views here.
 def listar_eventos(request):
-    eventos = Evento.objects.all()
+    eventos = Evento.objects.filter(
+        data__gte=date.today()
+    )
     return render(
         request=request,
         context={'eventos': eventos},
