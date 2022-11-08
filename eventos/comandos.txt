@@ -30,3 +30,7 @@ Categoria.objects.filter(nome='Backend')
 backend = Categoria.objects.filter(nome='Backend')
 backend = backend[0]
 backend.nome
+
+## COMANDOS PARA TESTES AUTOMATIZADOS
+python manage.py test
+
